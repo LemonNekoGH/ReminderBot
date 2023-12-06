@@ -14,7 +14,9 @@ namespace ReminderBot.Bot;
 public class Bot(ITelegramBotClient client)
 {
     public delegate void CommandReceivedHandler(Command ctx);
+
     public delegate void CommonMessageReceivedHandler(Message ctx);
+
     public delegate void CallbackQueryReceivedHandler(CallbackQuery ctx);
 
     public event CommandReceivedHandler? CommandReceived;
@@ -25,24 +27,18 @@ public class Bot(ITelegramBotClient client)
 
     public void Start(CancellationToken cts)
     {
-        client.Timeout = TimeSpan.FromSeconds(10);
+        client.Timeout = TimeSpan.FromSeconds(100);
         client.TestApiAsync(cts).Wait(cts);
 
-        Task.Run(async () =>
-        {
-            while (!cts.IsCancellationRequested)
-            {
-                Update[] updates = await client.GetUpdatesAsync(allowedUpdates: default, cancellationToken: cts);
-                this.logger.Debug($"Update received, count: {updates.Length}");
-                foreach (Update update in updates)
-                    this.HandleUpdate(update);
-            }
-        }, cts);
+        client.StartReceiving(this.HandleUpdate, this.HandlePollingError, null, cts);
 
         this.logger.Info("Bot started");
     }
 
-    private void HandleUpdate(Update update)
+    private void HandlePollingError(ITelegramBotClient _, Exception e, CancellationToken token) =>
+        this.logger.Fatal($"Unexpected error: {e.Message}, type: {e.GetType()}");
+
+    private void HandleUpdate(ITelegramBotClient _, Update update, CancellationToken token)
     {
         switch (update.Type)
         {

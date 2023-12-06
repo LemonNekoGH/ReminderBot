@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace ReminderBot.Bot;
 internal static class Program
 {
     private static readonly CancellationTokenSource cts = new();
+    private static string version = "0.1.0-alpha.1";
 
     private static string GetOs()
     {
@@ -30,24 +32,26 @@ internal static class Program
     private static void InitialLogger(ISetupLoadConfigurationBuilder builder)
     {
         LogLevel minLevel = LogLevel.Info;
-        if (BotVersion.Version.Contains("alpha")
-        || BotVersion.Version.Contains("beta")
-        || BotVersion.Version.Contains("rc")
-        || BotVersion.Version.StartsWith("0."))
+        if (version.Contains("alpha")
+        || version.Contains("beta")
+        || version.Contains("rc")
+        || version.StartsWith("0."))
             minLevel = LogLevel.Debug;
-
 
         builder.ForLogger()
             .FilterMinLevel(minLevel)
-            .WriteToConsole(layout: Layout.FromString("${longdate}|${level:uppercase=true}|${logger}|${message:withexception=true}|${event-properties:item=ID}"));
+            .WriteToConsole(layout: Layout.FromString("${longdate}|${level:uppercase=true}|${logger}|${message:withexception=true}|${all-event-properties:includeEmptyValues=true:includeScopeProperties=true}"));
     }
 
     private static void Main()
     {
+        AssemblyInformationalVersionAttribute? versionAttr = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+        version = versionAttr?.InformationalVersion ?? "0.1.0-alpha.1";
+
         Console.WriteLine("=======================");
         Console.WriteLine("Reminder Bot");
         Console.WriteLine("");
-        Console.WriteLine($"Version:          {BotVersion.Version}");
+        Console.WriteLine($"Version:          {version}");
         Console.WriteLine($"Operating System: {GetOs()}");
         Console.WriteLine($"Architecture:     {RuntimeInformation.OSArchitecture}");
         Console.WriteLine($"ProcessorCount:   {Environment.ProcessorCount}");
@@ -65,20 +69,20 @@ internal static class Program
 
         var bot = new Bot(botClient);
 
-        var cmdHandler = new CommandHandler(botClient);
+        var startCommandHandler = new StartCommandHandler(botClient);
 
-        bot.CommandReceived += cmdHandler.HandleNewRemindAsync;
+        bot.CommandReceived += startCommandHandler.Handle;
 
         bot.Start(cts.Token);
 
         // suspend this program
         var waitForStop = new TaskCompletionSource<bool>();
-        Console.CancelKeyPress += (sender, args) =>
+        Console.CancelKeyPress += (_, args) =>
         {
             cts.Cancel();
             args.Cancel = true;
 
-            bot.CommandReceived -= cmdHandler.HandleNewRemindAsync;
+            bot.CommandReceived -= startCommandHandler.Handle;
 
             waitForStop.TrySetResult(true);
         };

@@ -10,6 +10,7 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <DebugType>embedded</DebugType>
     <EnableCompressionSingleFile>true</EnableCompressionSingleFile>
+    <Version>0.1.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +23,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     <PackageReference Include="Telegram.Bot" Version="19.0.0" />
   </ItemGroup>
+
 
 </Project>
