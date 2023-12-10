@@ -70,7 +70,8 @@ public sealed class StartCommandHandler(ITelegramBotClient client) : CommandHand
 {
     protected override async void HandleInternal(Command cmd, Logger logger)
     {
-        Message message = await client.SendTextMessageAsync(cmd.Message.Chat.Id, "请将提醒名称回复至此消息");
+        string msgPrefix = cmd.Message.Chat.IsGroup() ? "你正在创建一条会发送给所有群组成员的提醒事项" : "你正在为自己创建提醒事项";
+        Message message = await client.SendTextMessageAsync(cmd.Message.Chat.Id, $"{msgPrefix}，请将提醒事项名称回复至此消息");
         try
         {
             await Operations.CreateOperationAsync(message.MessageId, cmd.Message.FromUserId(), OperationType.Create);

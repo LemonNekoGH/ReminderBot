@@ -73,6 +73,10 @@ internal static class Program
 
         bot.CommandReceived += startCommandHandler.Handle;
 
+        var createRemindMessageHandler = new CreateRemindMessageHandler(botClient);
+
+        bot.CommonMessageReceived += createRemindMessageHandler.Handle;
+
         bot.Start(cts.Token);
 
         // suspend this program

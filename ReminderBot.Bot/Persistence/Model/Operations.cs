@@ -32,12 +32,14 @@ public record class Operations
     [Column("type")]
     public OperationType OperationType { get; set; }
 
+    // TODO: need test
     public static async Task<Operations?> GetOperationByMessageIdAsync(int messageId)
     {
         await using var ctx = new PersistenceContext();
         return await ctx.Operations.Where(it => it.MessageId == messageId).FirstOrDefaultAsync();
     }
 
+    // TODO: need test
     public static async Task CreateOperationAsync(int messageId, long userId, OperationType type, string? remindItemId = null)
     {
         await using var ctx = new PersistenceContext();
@@ -48,6 +50,13 @@ public record class Operations
             OperationType = type,
             RemindItemId = remindItemId
         });
+        await ctx.SaveChangesAsync();
+    }
+
+    // TODO: need test
+    public static async Task MarkOperationAsCompletedAsync(PersistenceContext ctx, int messageId)
+    {
+        ctx.Operations.Update(new Operations {MessageId = messageId, Completed = true});
         await ctx.SaveChangesAsync();
     }
 }
