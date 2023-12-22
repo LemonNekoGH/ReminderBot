@@ -27,16 +27,4 @@ public record class RemindItem
 
     [Column("chat_id")]
     public long ChatId { get; set; }
-
-    // TODO: need test
-    public static async Task CreateAsync(PersistenceContext ctx, string remindName, long owner, long chatId)
-    {
-        await ctx.RemindItems.AddAsync(new RemindItem
-        {
-            Owner = owner,
-            Name = remindName,
-            ChatId = chatId
-        });
-        await ctx.SaveChangesAsync();
-    }
 }

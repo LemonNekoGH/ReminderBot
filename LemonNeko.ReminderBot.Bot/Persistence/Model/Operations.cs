@@ -15,7 +15,7 @@ public enum OperationType
 
 [PrimaryKey("MessageId")]
 [Table("operations", Schema = "reminder_bot")]
-public record class Operations
+public record Operations
 {
     [Column("id")]
     public int MessageId { get; set; }
@@ -31,33 +31,4 @@ public record class Operations
 
     [Column("type")]
     public OperationType OperationType { get; set; }
-
-    // TODO: need test
-    public static async Task<Operations?> GetOperationByMessageIdAsync(int messageId)
-    {
-        await using var ctx = new PersistenceContext();
-        return await ctx.Operations.Where(it => it.MessageId == messageId).FirstOrDefaultAsync();
-    }
-
-    // TODO: need test
-    public static async Task CreateOperationAsync(int messageId, long userId, OperationType type, string? remindItemId = null)
-    {
-        await using var ctx = new PersistenceContext();
-        await ctx.Operations.AddAsync(new Operations
-        {
-            MessageId = messageId,
-            OperatorUser = userId,
-            OperationType = type,
-            RemindItemId = remindItemId
-        });
-        await ctx.SaveChangesAsync();
-    }
-
-    // TODO: need test
-    public static async Task MarkOperationAsCompletedAsync(PersistenceContext ctx, int messageId)
-    {
-        Operations? operation = await ctx.Operations.Where(it => it.MessageId == messageId).FirstOrDefaultAsync();
-        operation!.Completed = true;
-        await ctx.SaveChangesAsync();
-    }
 }

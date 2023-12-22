@@ -20,7 +20,8 @@ public abstract class MessageHandler(ITelegramBotClient client, OperationType ty
         int? msgId = msg.ReplyToMessage?.MessageId;
         if (msgId == null) return;
 
-        Operations? operation = await Operations.GetOperationByMessageIdAsync(msgId.Value);
+        await using var ctx = new PersistenceContext();
+        Operations? operation = await ctx.GetOperationByMessageIdAsync(msgId.Value);
         if (operation is null) return;
 
         if (operation.OperationType != type) return;
@@ -73,8 +74,8 @@ public class CreateRemindMessageHandler(ITelegramBotClient client) : MessageHand
         {
             await using var ctx = new PersistenceContext();
             await using IDbContextTransaction transaction = await ctx.Database.BeginTransactionAsync();
-            await RemindItem.CreateAsync(ctx, msg.Text, msg.FromUserId(), msg.Chat.Id);
-            await Operations.MarkOperationAsCompletedAsync(ctx, msg.MessageId);
+            await ctx.CreateAsync(msg.Text, msg.FromUserId(), msg.Chat.Id);
+            await ctx.MarkOperationAsCompletedAsync(msg.MessageId);
             await transaction.CommitAsync();
             await client.SendTextMessageAsync(msg.Chat.Id, "提醒事项已创建，使用 `/set_period` 设置提醒间隔、使用 `/set_content` 设置提醒内容后才会生效", replyToMessageId: msg.MessageId);
         }

@@ -1,6 +1,7 @@
 using NLog;
 
 using LemonNeko.ReminderBot.Bot.Extensions;
+using LemonNeko.ReminderBot.Bot.Persistence;
 using LemonNeko.ReminderBot.Bot.Persistence.Model;
 using LemonNeko.ReminderBot.Bot.Types;
 
@@ -34,7 +35,8 @@ public abstract class CommandHandler(ITelegramBotClient client, string commandNa
             bool isFromAdmin = false;
             if (isFromGroup) // there are no administrators in the private chat
             {
-                isAllowAllUsers = await Settings.IsAllowAllUsersAsync(cmd.Message.Chat.Id);
+                await using var ctx = new PersistenceContext();
+                isAllowAllUsers = await ctx.IsAllowAllUsersAsync(cmd.Message.Chat.Id);
                 isFromAdmin = await cmd.Message.IsFromAdminAsync(client);
             }
 
@@ -74,7 +76,8 @@ public sealed class StartCommandHandler(ITelegramBotClient client) : CommandHand
         Message message = await client.SendTextMessageAsync(cmd.Message.Chat.Id, $"{msgPrefix}，请将提醒事项名称回复至此消息");
         try
         {
-            await Operations.CreateOperationAsync(message.MessageId, cmd.Message.FromUserId(), OperationType.Create);
+            await using var ctx = new PersistenceContext();
+            await ctx.CreateOperationAsync(message.MessageId, cmd.Message.FromUserId(), OperationType.Create);
         }
         catch (Exception e)
         {
