@@ -1,13 +1,13 @@
 using NLog;
 
-using ReminderBot.Bot.Extensions;
-using ReminderBot.Bot.Persistence.Model;
-using ReminderBot.Bot.Types;
+using LemonNeko.ReminderBot.Bot.Extensions;
+using LemonNeko.ReminderBot.Bot.Persistence.Model;
+using LemonNeko.ReminderBot.Bot.Types;
 
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace ReminderBot.Bot.Handler;
+namespace LemonNeko.ReminderBot.Bot.Handler;
 
 public abstract class CommandHandler(ITelegramBotClient client, string commandName, CommandHandler.Options options)
     : Handler<Command>(client)

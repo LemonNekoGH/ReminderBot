@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ReminderBot.Bot.Persistence.Model;
+namespace LemonNeko.ReminderBot.Bot.Persistence.Model;
 
 public enum OperationType
 {
@@ -56,7 +56,8 @@ public record class Operations
     // TODO: need test
     public static async Task MarkOperationAsCompletedAsync(PersistenceContext ctx, int messageId)
     {
-        ctx.Operations.Update(new Operations {MessageId = messageId, Completed = true});
+        Operations? operation = await ctx.Operations.Where(it => it.MessageId == messageId).FirstOrDefaultAsync();
+        operation!.Completed = true;
         await ctx.SaveChangesAsync();
     }
 }

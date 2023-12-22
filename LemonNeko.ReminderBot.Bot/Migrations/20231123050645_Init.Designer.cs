@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using ReminderBot.Bot.Persistence;
+using LemonNeko.ReminderBot.Bot.Persistence;
 
 #nullable disable
 
-namespace ReminderBot.Bot.Migrations
+namespace LemonNeko.ReminderBot.Bot.Migrations
 {
     [DbContext(typeof(PersistenceContext))]
     [Migration("20231123050645_Init")]
@@ -24,7 +24,7 @@ namespace ReminderBot.Bot.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ReminderBot.Bot.Persistence.Model.Operations", b =>
+            modelBuilder.Entity("LemonNeko.ReminderBot.Bot.Persistence.Model.Operations", b =>
                 {
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace ReminderBot.Bot.Migrations
                     b.ToTable("operations", "reminder_bot");
                 });
 
-            modelBuilder.Entity("ReminderBot.Bot.Persistence.Model.RemindItem", b =>
+            modelBuilder.Entity("LemonNeko.ReminderBot.Bot.Persistence.Model.RemindItem", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -86,7 +86,7 @@ namespace ReminderBot.Bot.Migrations
                     b.ToTable("remind_items", "reminder_bot");
                 });
 
-            modelBuilder.Entity("ReminderBot.Bot.Persistence.Model.Settings", b =>
+            modelBuilder.Entity("LemonNeko.ReminderBot.Bot.Persistence.Model.Settings", b =>
                 {
                     b.Property<long>("ChatId")
                         .ValueGeneratedOnAdd()

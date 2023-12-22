@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ReminderBot.Bot.Persistence.Model;
+namespace LemonNeko.ReminderBot.Bot.Persistence.Model;
 
 [PrimaryKey("ChatId")]
 [Table("settings", Schema = "reminder_bot")]

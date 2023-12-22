@@ -22,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 
-    <ProjectReference Include="../ReminderBot.Bot/ReminderBot.Bot.csproj"></ProjectReference>
+    <ProjectReference Include="../LemonNeko.ReminderBot.Bot/LemonNeko.ReminderBot.Bot.csproj"></ProjectReference>
   </ItemGroup>
 
 </Project>

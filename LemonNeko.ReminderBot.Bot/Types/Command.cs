@@ -1,6 +1,6 @@
 using Telegram.Bot.Types;
 
-namespace ReminderBot.Bot.Types;
+namespace LemonNeko.ReminderBot.Bot.Types;
 
 public class Command(Message message, string name)
 {

@@ -7,12 +7,12 @@ using NLog;
 using NLog.Config;
 using NLog.Layouts;
 
-using ReminderBot.Bot.Handler;
-using ReminderBot.Bot.Persistence;
+using LemonNeko.ReminderBot.Bot.Handler;
+using LemonNeko.ReminderBot.Bot.Persistence;
 
 using Telegram.Bot;
 
-namespace ReminderBot.Bot;
+namespace LemonNeko.ReminderBot.Bot;
 
 internal static class Program
 {

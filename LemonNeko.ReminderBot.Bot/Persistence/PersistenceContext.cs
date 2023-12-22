@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-using ReminderBot.Bot.Persistence.Model;
+using LemonNeko.ReminderBot.Bot.Persistence.Model;
 
-namespace ReminderBot.Bot.Persistence;
+namespace LemonNeko.ReminderBot.Bot.Persistence;
 
 public class PersistenceContext : DbContext
 {

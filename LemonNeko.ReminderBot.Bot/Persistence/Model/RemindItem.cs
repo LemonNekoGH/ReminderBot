@@ -4,7 +4,7 @@ using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace ReminderBot.Bot.Persistence.Model;
+namespace LemonNeko.ReminderBot.Bot.Persistence.Model;
 
 [PrimaryKey("Id")]
 [Table("remind_items", Schema = "reminder_bot")]

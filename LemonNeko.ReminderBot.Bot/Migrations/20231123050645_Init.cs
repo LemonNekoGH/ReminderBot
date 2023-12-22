@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ReminderBot.Bot.Migrations
+namespace LemonNeko.ReminderBot.Bot.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

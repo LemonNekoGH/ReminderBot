@@ -1,7 +1,7 @@
 using NLog;
 
-using ReminderBot.Bot.Extensions;
-using ReminderBot.Bot.Types;
+using LemonNeko.ReminderBot.Bot.Extensions;
+using LemonNeko.ReminderBot.Bot.Types;
 
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -9,7 +9,7 @@ using Telegram.Bot.Types.Enums;
 
 using NotSupportedException = System.NotSupportedException;
 
-namespace ReminderBot.Bot;
+namespace LemonNeko.ReminderBot.Bot;
 
 public class Bot(ITelegramBotClient client)
 {

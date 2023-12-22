@@ -2,7 +2,7 @@ using NLog;
 
 using Telegram.Bot;
 
-namespace ReminderBot.Bot.Handler;
+namespace LemonNeko.ReminderBot.Bot.Handler;
 
 public abstract class Handler<T>(ITelegramBotClient client)
 {

@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderBot.Bot", "ReminderBot.Bot\ReminderBot.Bot.csproj", "{1829CC1A-DBFA-4720-A273-A16D3AABD977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LemonNeko.ReminderBot.Bot", "LemonNeko.ReminderBot.Bot\LemonNeko.ReminderBot.Bot.csproj", "{1829CC1A-DBFA-4720-A273-A16D3AABD977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderBot.Test", "ReminderBot.Test\ReminderBot.Test.csproj", "{F64E857E-4780-4484-9AEF-A849D5E68785}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonNeko.ReminderBot.Test", "LemonNeko.ReminderBot.Test\LemonNeko.ReminderBot.Test.csproj", "{F64E857E-4780-4484-9AEF-A849D5E68785}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

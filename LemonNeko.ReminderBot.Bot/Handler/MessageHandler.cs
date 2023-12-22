@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 using NLog;
 
-using ReminderBot.Bot.Extensions;
-using ReminderBot.Bot.Persistence;
-using ReminderBot.Bot.Persistence.Model;
+using LemonNeko.ReminderBot.Bot.Extensions;
+using LemonNeko.ReminderBot.Bot.Persistence;
+using LemonNeko.ReminderBot.Bot.Persistence.Model;
 
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace ReminderBot.Bot.Handler;
+namespace LemonNeko.ReminderBot.Bot.Handler;
 
 public abstract class MessageHandler(ITelegramBotClient client, OperationType type) : Handler<Message>(client)
 {

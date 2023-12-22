@@ -4,7 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace ReminderBot.Bot.Extensions;
+namespace LemonNeko.ReminderBot.Bot.Extensions;
 
 public static class MessageExtension
 {

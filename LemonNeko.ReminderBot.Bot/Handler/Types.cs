@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace ReminderBot.Bot.Handler;
+namespace LemonNeko.ReminderBot.Bot.Handler;
 
 public sealed record class CallbackQueryData
 {

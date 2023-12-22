@@ -5,11 +5,11 @@ ARG PLATFORM=linux-x64
 
 WORKDIR /app
 
-COPY ReminderBot.Bot/ReminderBot.Bot.csproj ReminderBot.Bot.csproj
+COPY LemonNeko.ReminderBot.Bot/LemonNeko.ReminderBot.Bot.csproj LemonNeko.ReminderBot.Bot.csproj
 
 RUN dotnet restore
 
-COPY ReminderBot.Bot .
+COPY LemonNeko.ReminderBot.Bot .
 
 RUN dotnet publish -c Release -r ${PLATFORM}
 
@@ -21,6 +21,6 @@ ARG PLATFORM=linux-x64
 
 WORKDIR /app
 
-COPY --from=builder /app/bin/$PLATFORM/Release/net8.0/$PLATFORM/publish/ReminderBot.Bot /app/ReminderBot.Bot
+COPY --from=builder /app/bin/$PLATFORM/Release/net8.0/$PLATFORM/publish/LemonNeko.ReminderBot.Bot /app/LemonNeko.ReminderBot.Bot
 
-ENTRYPOINT [ "/app/ReminderBot.Bot" ]
+ENTRYPOINT [ "/app/LemonNeko.ReminderBot.Bot" ]

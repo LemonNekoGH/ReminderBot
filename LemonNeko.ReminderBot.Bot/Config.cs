@@ -1,4 +1,4 @@
-namespace ReminderBot.Bot;
+namespace LemonNeko.ReminderBot.Bot;
 
 using DotNetEnv;
 
